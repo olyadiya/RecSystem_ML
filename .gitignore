@@ -1,0 +1,41 @@
+git config --global core.excludesfile ~/.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.env/
+.env.*
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Data 
+data/raw/*
+data/processed/*
+data/interim/
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Models 
+*.pkl
+*.h5
+*.model
+
+# Cache
+.cache/
