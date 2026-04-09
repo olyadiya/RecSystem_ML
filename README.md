@@ -1,26 +1,78 @@
 # RecSystem_ML
-Repository for the project for ML class: creating recommendation system.
 
-# Planned system architecture: 
+A recommendation system for a post feed based on user behavior: likes, shares, viewing time, and subscriptions.
+
+## Project goal
+To build a personalized recommendation feed.
+
+## Team
+| Role | Name | GitHub | Telegram |
+|------|-----|--------|----------|
+| **Team Lead** | Виктория Жиляева | @viktoria_zhilyaeva | @viktoria_zhilyaeva |
+| **ML Engineer** | Милана | @imyourmilla | @imyourmilla |
+| **Data Engineer** | Оля | @oladyia | @oladyia |
+| **Documentation/Tests** | Катя | @litlsun | @litlsun |
+
+## Planned system architecture
+
 ```mermaid
 flowchart TD
+    subgraph INPUT["Input Data"]
+        USERS[Users]
+        POSTS[Posts]
+    end
 
-A[Users] --> D[Interactions]
-B[Posts] --> D
+    USERS --> INTERACTIONS
+    POSTS --> INTERACTIONS
 
-D --> E[Feature Engineering]
+    INTERACTIONS[Interactions<br/>likes/reposts/views]
 
-E --> F[Model Training]
+    INTERACTIONS --> FEATURES
 
-F --> G[Recommendation Engine]
+    subgraph FEATURES["Feature Engineering"]
+        direction LR
+        USER_FEAT[User features]
+        POST_FEAT[Post features]
+    end
 
-G --> H[User Feed]
+    FEATURES --> TRAINING
+
+    subgraph TRAINING["Model Training"]
+        direction TB
+        
+        subgraph CF["Collaborative Filtering"]
+            MATRIX[User-item matrix]
+            SIM[Similar users]
+        end
+
+        subgraph CB["Content Filtering"]
+            TAGS[Post tags]
+            TEXT[Text]
+        end
+
+        HYBRID[Hybrid model<br/>ALS / LightFM]
+        
+        CF --> HYBRID
+        CB --> HYBRID
+    end
+
+    TRAINING --> ENGINE
+
+    subgraph ENGINE["Recommendation Engine"]
+        SCORE[Relevance prediction]
+        TOP[Top-K recommendations]
+        SCORE --> TOP
+    end
+
+    ENGINE --> FEED[User Feed]
+
+    FEED -.-> |Feedback<br/>likes/skips| INTERACTIONS
 ```
 
 # Pipline: 
 Raw Data → Preprocessing → Engineering → Model → Ranking → Feed
 
-# Repo structure: 
+## Repo structure: 
 
 ```bash
 project/
@@ -47,5 +99,4 @@ project/
 ├── .gitignore
 ├── main.py
 ├── requirements.txt
-└── README.md
-```
+
