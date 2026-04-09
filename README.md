@@ -22,8 +22,6 @@ Raw Data → Preprocessing → Engineering → Model → Ranking → Feed
 
 # Repo structure: 
 
-## 📁 Структура проекта
-
 ```bash
 project/
 ├── data/
