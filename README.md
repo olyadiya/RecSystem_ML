@@ -1,6 +1,6 @@
 # RecSystem_ML
 
-A recommendation system for a post feed based on user behavior: likes, shares, viewing time, and subscriptions.
+A recommendation system for a personalized post feed that analyzes user behavior — including likes, shares, viewing time, and subscription — to deliver relevant content through a hybrid model combining collaborative and content filtering.
 
 ## Project goal
 To build a personalized recommendation feed.
@@ -9,9 +9,9 @@ To build a personalized recommendation feed.
 | Role | Name | GitHub | Telegram |
 |------|-----|--------|----------|
 | **Team Lead** | Виктория Жиляева | @viktoria_zhilyaeva | @viktoria_zhilyaeva |
-| **ML Engineer** | Милана | @imyourmilla | @imyourmilla |
-| **Data Engineer** | Оля | @oladyia | @oladyia |
-| **Documentation/Tests** | Катя | @litlsun | @litlsun |
+| **ML Engineer** | Милана Майорова | @imyourmilla | @imyourmilla |
+| **Data Engineer** | Оля Ипатова | @oladyia | @oladyia |
+| **Documentation/Tests** | Катя Иванова | @litlsun | @litlsun |
 
 ## Planned system architecture
 
@@ -69,10 +69,10 @@ flowchart TD
     FEED -.-> |Feedback<br/>likes/skips| INTERACTIONS
 ```
 
-# Pipline: 
+## Pipline
 Raw Data → Preprocessing → Engineering → Model → Ranking → Feed
 
-## Repo structure: 
+## Repo structure
 
 ```bash
 project/
@@ -99,4 +99,47 @@ project/
 ├── .gitignore
 ├── main.py
 ├── requirements.txt
+```
 
+## Installation
+
+```bash
+git clone https://github.com/username/RecSystem_ML
+cd RecSystem_ML
+pip install -r requirements.txt
+```
+
+## Run
+```bash
+python main.py
+```
+
+## Usage Example
+
+### Getting recommendations for a user
+```python
+import requests
+
+# Get top-10 posts for user_id=42
+response = requests.get("http://localhost:8000/recommend", params={
+    "user_id": 42,
+    "k": 10
+})
+
+feed = response.json()
+for item in feed["recommendations"]:
+    print(f"Post {item['post_id']} | score: {item['score']:.4f}")
+```
+
+### Example of API response:
+```json
+{
+  "user_id": 42,
+  "recommendations": [
+    {"post_id": 101, "score": 0.92},
+    {"post_id": 205, "score": 0.87},
+    {"post_id": 307, "score": 0.85}
+  ],
+  "timestamp": "2026-04-14T12:00:00Z"
+}
+```
