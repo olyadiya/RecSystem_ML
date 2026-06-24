@@ -84,8 +84,11 @@ def clean_data(df):
 
     df['tags_text_clean'] = df['steamspy_tags'].apply(clean_tags_text)
 
+    # 5. КОДИРОВАНИЕ developer
+    le = LabelEncoder()
+    df['developer_encoded'] = le.fit_transform(df['developer'])
 
-    # 5. ОБЪЕДИНЯЕМ One-Hot признаки в основной DataFrame
+    # 6. ОБЪЕДИНЯЕМ One-Hot признаки в основной DataFrame
     df_onehot = pd.concat([genres_df, categories_df, tags_clean, platforms_df], axis=1)
     df = pd.concat([df, df_onehot], axis=1)
 
