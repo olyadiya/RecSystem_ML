@@ -1,3 +1,9 @@
-pandas
+#Data processing
 numpy
+pandas
+
+#Visualization
+matplotlib
+
+#Machine learning
 scikit-learn
