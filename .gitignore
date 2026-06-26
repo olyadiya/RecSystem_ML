@@ -33,7 +33,8 @@ Thumbs.db
 # Models 
 *.pkl
 *.h5
-*.model
+models/*.pkl
+models/*.npy
 
 # Cache
 .cache/
