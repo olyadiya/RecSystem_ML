@@ -9,7 +9,7 @@ To build a personalized recommendation feed.
 | Role | Name | GitHub | Telegram |
 |------|-----|--------|----------|
 | **Team Lead** | Виктория Жиляева | @viktoria_zhilyaeva | @viktoria_zhilyaeva |
-| **Data Engineer** | Милана Майорова | @imyourmilla | @imyourmilla |
+| **Data Engineer** | Милана Майорова | @svyatoslavna | @imyourmilla |
 | **ML Engineer** | Оля Ипатова | @oladyia | @oladyia |
 | **Documentation/Tests** | Катя Иванова | @litlsun | @litlsun |
 
