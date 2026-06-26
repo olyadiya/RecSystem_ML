@@ -1,14 +1,14 @@
 # RecSystem_ML
 
-A recommendation system for a personalized post feed that analyzes user behavior — including likes, shares, viewing time, and subscription — to deliver relevant content through a hybrid model combining collaborative and content filtering.
+A recommendation system for the Steam gaming platform, built on a Content-Based approach using SVD decomposition. The system operates on the item-to-item principle: when a user views a specific game, the system recommends other games that are most similar in terms of their feature set.
 
 ## Project goal
-To build a personalized recommendation feed.
+To develop a recommendation system that, based on game features (genres, categories, tags, platforms, etc.), generates personalized recommendations, helping users find games that match their preferences.
 
 ## Team
 | Role | Name | GitHub | Telegram |
 |------|-----|--------|----------|
-| **Team Lead** | Виктория Жиляева | zhilyaevaviktorija | @viktoria_zhilyaeva |
+| **Team Lead** | Виктория Жиляева | @zhilyaevaviktorija | @viktoria_zhilyaeva |
 | **Data Engineer** | Милана Майорова | @svyatoslavna | @imyourmilla |
 | **ML Engineer** | Оля Ипатова | @oladiya | @oladyia |
 | **Documentation/Tests** | Катя Иванова | @litlsun | @litlsun |
@@ -102,13 +102,14 @@ Raw Data → Preprocessing → Engineering → Model → Ranking → Feed
 
 ## Repo structure
 
-```bash
 project/
-├── data/
-│   ├── raw/
-│   │   └── steam.csv
-│   └── processed/
-│       └── cleaned_data.csv
+├── data_csv/
+│   ├── cleaned_data.csv
+│   └── raw_steam.csv
+│
+├── notebooks/
+│   ├── eda_steam.ipynb
+│   └── recsys_steam.ipynb
 │
 ├── src/
 │   ├── data/
@@ -116,15 +117,17 @@ project/
 │   ├── features/
 │   │   └── build_features.py
 │   └── models/
+│       ├── download_model.py
 │       └── recommend.py
 │
 ├── tests/
+│   ├── recsys_test.md
 │   └── test_evaluation.py
 │
 ├── .gitignore
+├── README.md
 ├── main.py
-├── requirements.txt
-```
+└── requirements.txt
 
 ## Installation
 
