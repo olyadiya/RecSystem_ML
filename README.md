@@ -90,8 +90,6 @@ project/
 │   └── models/
 │       └── recommend.py
 │
-├── notebooks/
-│
 ├── tests/
 │   └── test_evaluation.py
 │
