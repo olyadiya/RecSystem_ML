@@ -39,7 +39,6 @@ def load_model(output_dir=None):
 
     return model_pipeline, game_embeddings
 
-
 if __name__ == '__main__':
     from src.data.load_data import load_steam_data
     from src.features.build_features import clean_data
