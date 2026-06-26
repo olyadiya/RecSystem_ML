@@ -101,7 +101,7 @@ flowchart TD
 Raw Data → Preprocessing → Engineering → Model → Ranking → Feed
 
 ## Repo structure
-
+```bash
 project/
 ├── data_csv/
 │   ├── cleaned_data.csv
@@ -128,6 +128,7 @@ project/
 ├── README.md
 ├── main.py
 └── requirements.txt
+```
 
 ## Installation
 
