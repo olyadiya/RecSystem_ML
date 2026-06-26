@@ -7,3 +7,6 @@ matplotlib
 
 #Machine learning
 scikit-learn
+
+#model download
+joblib
