@@ -13,60 +13,88 @@ To build a personalized recommendation feed.
 | **ML Engineer** | Оля Ипатова | @oladyia | @oladyia |
 | **Documentation/Tests** | Катя Иванова | @litlsun | @litlsun |
 
-## Planned system architecture
+## System architecture
 
 ```mermaid
 flowchart TD
     subgraph INPUT["Input Data"]
-        USERS[Users]
-        POSTS[Posts]
+        GAMES[Games<br/>steam.csv]
     end
 
-    USERS --> INTERACTIONS
-    POSTS --> INTERACTIONS
+    GAMES --> CLEANING
 
-    INTERACTIONS[Interactions<br/>likes/reposts/views]
+    subgraph CLEANING["Data Cleaning"]
+        direction TB
+        FILL[Fill missing values<br/>developer/publisher]
+        PARSE[Parse<br/>release_year, owners_mean]
+        RATING[Calculate rating_ratio<br/>positive / total]
+    end
 
-    INTERACTIONS --> FEATURES
+    CLEANING --> FEATURES
 
     subgraph FEATURES["Feature Engineering"]
-        direction LR
-        USER_FEAT[User features]
-        POST_FEAT[Post features]
-    end
-
-    FEATURES --> TRAINING
-
-    subgraph TRAINING["Model Training"]
         direction TB
         
-        subgraph CF["Collaborative Filtering"]
-            MATRIX[User-item matrix]
-            SIM[Similar users]
+        subgraph BINARY["Binary Features (One-Hot)"]
+            GENRES[Genres]
+            CATEGORIES[Categories]
+            TAGS[Tags<br/>steamspy_tags]
+            PLATFORMS[Platforms]
         end
 
-        subgraph CB["Content Filtering"]
-            TAGS[Post tags]
-            TEXT[Text]
+        subgraph NUMERIC["Numeric Features"]
+            RATING_RATIO[rating_ratio]
+            POSITIVE[positive_ratings]
+            NEGATIVE[negative_ratings]
+            PRICE[price]
+            DEVELOPER[developer_encoded]
         end
 
-        HYBRID[Hybrid model<br/>ALS / LightFM]
+        BINARY --> COMBINE
+        NUMERIC --> COMBINE
+        COMBINE[Combined Matrix<br/>games × features]
+    end
+
+    FEATURES --> SCALING
+
+    subgraph SCALING["Scaling"]
+        STANDARD[StandardScaler<br/>normalization]
+    end
+
+    SCALING --> SVD
+
+    subgraph SVD["SVD (TruncatedSVD)"]
+        LATENT[Latent Factors<br/>n_components = 29]
+        VARIANCE[Preserves ~90% of variance]
+    end
+
+    SVD --> EMBEDDINGS
+
+    subgraph EMBEDDINGS["Game Embeddings"]
+        MATRIX[Embedding Matrix<br/>27075 games × 29 factors]
+    end
+
+    EMBEDDINGS --> SIMILARITY
+
+    subgraph SIMILARITY["Cosine Similarity"]
+        COSINE[cosine_similarity<br/>pairwise game similarity]
+    end
+
+    SIMILARITY --> RECOMMEND
+
+    subgraph RECOMMEND["Recommendations"]
+        direction TB
+        USER_INPUT[User<br/>selects a game]
+        SEARCH[Search for game<br/>in dataset]
+        TOP[Top-K similar games<br/>by cosine similarity]
+        OUTPUT[Display recommendations<br/>name, genre, price, rating]
         
-        CF --> HYBRID
-        CB --> HYBRID
+        USER_INPUT --> SEARCH --> TOP --> OUTPUT
     end
 
-    TRAINING --> ENGINE
+    RECOMMEND --> RESULT
 
-    subgraph ENGINE["Recommendation Engine"]
-        SCORE[Relevance prediction]
-        TOP[Top-K recommendations]
-        SCORE --> TOP
-    end
-
-    ENGINE --> FEED[User Feed]
-
-    FEED -.-> |Feedback<br/>likes/skips| INTERACTIONS
+    RESULT[Personalized<br/>game recommendations]
 ```
 
 ## Pipline
