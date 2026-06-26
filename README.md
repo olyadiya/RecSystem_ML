@@ -78,10 +78,9 @@ Raw Data → Preprocessing → Engineering → Model → Ranking → Feed
 project/
 ├── data/
 │   ├── raw/
-│   │   ├── users.csv
-│   │   ├── posts.csv
-│   │   └── interactions.csv
+│   │   └── steam.csv
 │   └── processed/
+│       └── cleaned_data.csv
 │
 ├── src/
 │   ├── data/
@@ -94,7 +93,7 @@ project/
 ├── notebooks/
 │
 ├── tests/
-│   └── test_data.py
+│   └── test_evaluation.py
 │
 ├── .gitignore
 ├── main.py
